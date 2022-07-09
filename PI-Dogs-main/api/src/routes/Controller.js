@@ -33,19 +33,20 @@ const getDogsFromApi = async () => {
     };
   });
 
-  return apiInfo;
+  return apiInfo; 
 };
 
 const loadInDb = async () => {
   const allDogsDb = await Dog.findAll({ include: Temper });
 
-  createDogs = await allDogsDb.map((e) => {
-    let temperament = e.temperament.map((e) => e.name);
-    let temperaments = temperament.join(", ");
+  createDogs = await allDogsDb.map((e) => { 
+    let temperament = e.tempers?.map((e) => e.name);
+    let temperaments = temperament?.join(", "); 
+    //console.log(temperaments)
     return {
       id: e.id,
 
-      name: e.name,
+      name: e.name, 
 
       height_min: e.height_min ? e.height_min : "no data",
 
@@ -60,6 +61,8 @@ const loadInDb = async () => {
       life_time_max: e.life_time_max ? e.life_time_min : "no data",
 
       temperament: temperaments,
+
+      userCreated: e.userCreated,
 
       image: e.image,
     };
@@ -86,7 +89,7 @@ const loadTemperInDb = async () => {
   temperaments = temperaments.filter((el) => el);
 
   temperaments = [...new Set(temperaments)].sort();
-
+ 
   temperaments.forEach(async (el) => {
     await Temper.findOrCreate({
       where: { name: el },

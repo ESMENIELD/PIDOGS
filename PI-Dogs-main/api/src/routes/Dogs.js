@@ -1,4 +1,4 @@
-const { Dog, Temper } = require("../db");
+const { Dog} = require("../db");
 const { Router } = require("express");
 const { getAllInfo, loadTemperInDb } = require("./Controller");
 
@@ -56,8 +56,7 @@ router.post("/dogs", async (req, res, next) => {
       weight_max,
       life_time_min,
       life_time_max,
-      image,
-      temperament,
+      temperament
     } = req.body;
 
     const newDog = await Dog.create({
@@ -68,7 +67,6 @@ router.post("/dogs", async (req, res, next) => {
       weight_max,
       life_time_min,
       life_time_max,
-      image,
       userCreated: true,
     });
     // temperament.map(e=> newDog.addTempers(e))

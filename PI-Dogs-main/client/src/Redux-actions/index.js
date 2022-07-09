@@ -31,4 +31,31 @@ export function getTemperaments () {
 
     }
 
+};
+
+export function filterByTemp (payload){
+    return{
+        type: 'FILTER_TEMPER',
+        payload
+    }
+};
+
+export function orderName (payload)  {
+    return{
+        type:'ORDER_NAME',
+        payload
+    }
+};
+
+export function orderByWeight(payload) {
+    return{
+        type:'ORDER_WEIGHT',
+        payload
+    }
+};
+export function filterCreated(payload) {
+    return{
+        type:'FILTER_CREATED',
+        payload
+    }
 }

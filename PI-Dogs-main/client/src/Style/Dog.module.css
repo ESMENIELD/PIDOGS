@@ -1,0 +1,11 @@
+.img {
+    width: 600px;
+    height: 600px;
+    border-radius: 300px;
+}
+.card{
+    background-color: coral;
+    border-radius: 5px;
+    align-content: center;
+    
+}

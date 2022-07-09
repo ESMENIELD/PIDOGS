@@ -2,15 +2,23 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getDogs, getTemperaments } from "../Redux-actions";
+import {
+  getDogs,
+  getTemperaments,
+  filterByTemp,
+  filterCreated,
+  orderName,
+  orderByWeight,
+} from "../Redux-actions";
 import SearchBar from "./SearchBar";
 import Paginado from "./Paginado";
 import Dog from "./Dog";
 
 const Home = () => {
   const dispatch = useDispatch(); // despacha aciones medante hooks
-  const allDogs = useSelector((state) => state.dogs); 
+  const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperaments);
+  const [order, setOrder] = useState("");
 
   //-----------PAGINADO
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,59 +34,128 @@ const Home = () => {
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
-  }, []);
+  }, [dispatch]);
+
+  //----funciones de manejos de cambios---
+
+  //---filtros
+  function handleFilterTemp(e) {
+    e.preventDefault();
+    dispatch(filterByTemp(e.target.value));
+  }
+
+  function handleFilterCreated(e) {
+    e.preventDefault();
+    dispatch(filterCreated(e.target.value));
+    
+  }
+
+  //---ordenamientos
+
+  function handleOrderName(e) {
+    e.preventDefault();
+    dispatch(orderName(e.target.value));
+    setOrder(`Ordenado ${e.target.value} `);
+  }
+
+  function handleOrderWeight(e) {
+    e.preventDefault();
+    dispatch(orderByWeight(e.target.value));
+    setOrder(`Ordenado ${e.target.value} `);
+  }
 
   function handleClick(e) {
-    //funcion para manejar el dispach en el boton reload
+    //funcion para manejar el boton reload
     e.preventDefault();
     dispatch(getDogs());
   }
   return (
     <div>
-      <Link to="/create">Create Dog</Link>
-      <button
-        onClick={(e) => {
-          handleClick(e);
-        }}
-      >
-        Reload all countries
-      </button>
-      <div>
-        <SearchBar />
-        <select>
-          <option value="asc">ascendente</option>
-          <option value="des">descendente</option>
-        </select>
-        <select name="temperfilter">
-            {temperaments.map(temp=>{
-                return(
-                    <option value={temp.name}>{temp.name}</option>
-                )
-            })
+      <nav>
 
-            }
-        </select>
-      </div>
-      <Paginado
-        DogsPerPage={dogsPerPage}
-        allDogs={allDogs.length}
-        paginado={paginado}
-      />
-      {currentDogs?.map((e) => {
-        return (
-          <Dog
-            id={e.id}
-            name={e.name}
-            weight_min={e.weight_min}
-            weight_max={e.weight_max}
-            image={e.image}
-            temperament={e.temperament}
+        <Link to="/create">Create Dog</Link>
+
+        <button onClick={handleClick}>Reload</button>
+
+        <div>
+          <SearchBar />
+        </div>
+
+        <div>
+
+          <select id="orders1" onChange={(e) => handleOrderName(e)}>
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
+          </select>
+
+          <select id="orders2" onChange={(e) => handleOrderWeight(e)}>
+            <option value="lower">Lower weight</option>
+            <option value="higer">Higer weight</option>
+          </select>
+
+          <select id="temper" onChange={(e) => handleFilterTemp(e)}>
+            {temperaments?.map((temp) => {
+              return <option value={temp.name}>{temp.name}</option>;
+            })}
+          </select>
+
+          <select id="created" onChange={e=> handleFilterCreated(e)}>
+            <option value="created">Dogs created</option>
+            <option value="api">Existing dogs</option>
+          </select>
+
+        </div>
+        <div>
+
+          <Paginado
+            DogsPerPage={dogsPerPage}
+            allDogs={allDogs.length}
+            paginado={paginado}
           />
-        );
-      })}
-      
+
+        </div>
+
+      </nav>
+      <div>
+        {currentDogs?.map((e) => {
+          return (
+            <Dog
+              id={e.id}
+              name={e.name}
+              weight_min={e.weight_min}
+              weight_max={e.weight_max}
+              image={e.image}
+              temperament={e.temperament}
+            />
+          );
+        })}
+      </div>
+
+      <div>
+        <Paginado
+          DogsPerPage={dogsPerPage}
+          allDogs={allDogs.length}
+          paginado={paginado}
+        />
+      </div>
     </div>
   );
 };
 
 export default Home;
+
+// __Ruta principal__: debe contener
+
+// - [ ] Input de búsqueda para encontrar razas de perros por nombre
+// - [ v] Área donde se verá el listado de razas de perros. Deberá mostrar su:
+//   - Imagen
+//   - Nombre
+//   - Temperamento
+//   - Peso
+// - [ ] Botones/Opciones para filtrar por:
+//   - Temperamento
+//   - Raza existente (es decir las que vienen de la API) o agregada por nosotros (creadas mediante el form)
+// - [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por:
+//   - Orden alfabético
+//   - Peso
+// - [v ] Paginado para ir buscando y mostrando las siguientes razas, mostrando 8 razas por página.
