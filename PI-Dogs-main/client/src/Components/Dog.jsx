@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import s from "../Style/Dog.module.css";
+
 
 function Dog({ id, name, image, weight_min, weight_max, temperament }) {
   const libras = (number) => {
     let lbs = number * 2.2;
     return Math.floor(lbs);
   };
+  
   return (
-    <div key={id} className={s.card}>
-      <h2>{name}</h2>
-      <div>
-        <img src={image} alt="dog img" className={s.img} />
-      </div>
+
+    <div key={id} >
+      
+      
+        <img src={image} alt="dog img"  />
+        <h2 >{name}</h2>
 
       <div>
         <h3>weight_min:{weight_min} kg</h3>

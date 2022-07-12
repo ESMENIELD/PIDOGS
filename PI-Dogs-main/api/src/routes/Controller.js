@@ -64,9 +64,12 @@ const loadInDb = async () => {
 
       userCreated: e.userCreated,
 
-      image: e.image,
+      image: e.image? e.image: 'https://i.pinimg.com/564x/65/2f/c5/652fc5be632b0eaf2d9e1596afb4bd8b.jpg',
     };
   });
+
+
+
 
   return createDogs;
 };

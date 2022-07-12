@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+.div{
+    background-color: rgb(212, 212, 221);
+    border-radius: 15px;
+    margin: auto;
+    align-content: space-around;
+    width: 60%;
+    
+}
+
+.main{
+    background-image: url('../Style/perros.jpg');
+    font-family: 'PT Sans', sans-serif;
+    max-width: 10000px;
+    width: 90%;
+    margin: auto;
+    padding: 40px;
+    
+}
+
+ 
+  *{
+    list-style: none;
+  }
+  .botonTemp { 
+    width: 45%;
+    background-color: black;
+    color: white;
+    padding: 1%;
+    margin: 1% 1% 1% 1%;
+    border: 2px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    
+  }
+  
+  .botonTemp:hover{
+    background-color: #374151;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+    
+   
+   
+  
+  
+  
+  

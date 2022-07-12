@@ -57,8 +57,7 @@ function DogDetail() {
             <div>
               <h3>Temperament: {e.temperament}</h3>
             </div>
-            <div></div>
-            <div></div>
+            
           </div>
         );
       })}
