@@ -1,7 +1,6 @@
 const { Dog, Temper } = require("../db");
 const axios = require("axios");
 const { Sequelize } = require("sequelize");
-const Op = Sequelize.Op;
 
 const { API_KEY } = process.env;
 
@@ -33,20 +32,20 @@ const getDogsFromApi = async () => {
     };
   });
 
-  return apiInfo; 
+  return apiInfo;
 };
 
 const loadInDb = async () => {
   const allDogsDb = await Dog.findAll({ include: Temper });
 
-  createDogs = await allDogsDb.map((e) => { 
+  createDogs = await allDogsDb.map((e) => {
     let temperament = e.tempers?.map((e) => e.name);
-    let temperaments = temperament?.join(", "); 
+    let temperaments = temperament?.join(", ");
     //console.log(temperaments)
     return {
       id: e.id,
 
-      name: e.name, 
+      name: e.name,
 
       height_min: e.height_min ? e.height_min : "no data",
 
@@ -64,12 +63,11 @@ const loadInDb = async () => {
 
       userCreated: e.userCreated,
 
-      image: e.image? e.image: 'https://i.pinimg.com/564x/65/2f/c5/652fc5be632b0eaf2d9e1596afb4bd8b.jpg',
+      image: e.image
+        ? e.image
+        : "https://i.pinimg.com/564x/65/2f/c5/652fc5be632b0eaf2d9e1596afb4bd8b.jpg",
     };
   });
-
-
-
 
   return createDogs;
 };
@@ -92,7 +90,7 @@ const loadTemperInDb = async () => {
   temperaments = temperaments.filter((el) => el);
 
   temperaments = [...new Set(temperaments)].sort();
- 
+
   temperaments.forEach(async (el) => {
     await Temper.findOrCreate({
       where: { name: el },

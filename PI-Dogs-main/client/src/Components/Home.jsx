@@ -13,6 +13,7 @@ import {
 import SearchBar from "./SearchBar";
 import Paginado from "./Paginado";
 import Dog from "./Dog";
+import s from "../Style/home.module.css";
 
 const Home = () => {
   const dispatch = useDispatch(); // despacha aciones medante hooks
@@ -47,7 +48,6 @@ const Home = () => {
   function handleFilterCreated(e) {
     e.preventDefault();
     dispatch(filterCreated(e.target.value));
-    
   }
 
   //---ordenamientos
@@ -70,53 +70,109 @@ const Home = () => {
     dispatch(getDogs());
   }
   return (
-    <div>
-      <nav>
+    <div key="home">
+      <nav className={s.nav} key="nav">
+        <div className={s.divbot}>
+        <li className={s.li}>
+          <button className={s.botonlink}>
+          <Link  to="/create" className={s.link}>Create Dog</Link>
+          </button>
+        </li>
 
-        <Link to="/create">Create Dog</Link>
+        <li className={s.li}>
+          
+          <button className={s.boton} onClick={handleClick} key="reload">
+            Reload
+          </button>
+        </li>
 
-        <button onClick={handleClick}>Reload</button>
-
-        <div>
-          <SearchBar />
+        
         </div>
+        <SearchBar />
 
-        <div>
-
-          <select id="orders1" onChange={(e) => handleOrderName(e)}>
-            <option value="a-z">A-Z</option>
-            <option value="z-a">Z-A</option>
+        <li className={s.li}>
+          <select
+            className={s.input}
+            key="orders1"
+            onChange={(e) => handleOrderName(e)}
+          >
+            <option disabled selected>
+              Order by Name
+            </option>
+            <option key="o1" value="a-z">
+              A-Z
+            </option>
+            <option key="o2" value="z-a">
+              Z-A
+            </option>
           </select>
-
-          <select id="orders2" onChange={(e) => handleOrderWeight(e)}>
-            <option value="lower">Lower weight</option>
-            <option value="higer">Higer weight</option>
-          </select>
-
-          <select id="temper" onChange={(e) => handleFilterTemp(e)}>
+        </li>
+        <li className={s.li}>
+        <select
+          className={s.input}
+          key="orders2"
+          onChange={(e) => handleOrderWeight(e)}
+        >
+          <option disabled selected>
+            Order by Weigth
+          </option>
+          <option key="o3" value="lower">
+            Lower weight
+          </option>
+          <option key="o4" value="higer">
+            Higer weight
+          </option>
+        </select>
+        </li>
+        <li className={s.li}>
+          <select
+            key="temper"
+            onChange={(e) => handleFilterTemp(e)}
+            className={s.input}
+          >
+            <option disabled selected>
+              Filter by Temperament
+            </option>
             {temperaments?.map((temp) => {
-              return <option value={temp.name}>{temp.name}</option>;
+              return (
+                <option key={temp.id} value={temp.name}>
+                  {temp.name}
+                </option>
+              );
             })}
           </select>
-
-          <select id="created" onChange={e=> handleFilterCreated(e)}>
-            <option value="created">Dogs created</option>
-            <option value="api">Existing dogs</option>
+        </li>
+        <li className={s.li}>
+          <select
+            className={s.input}
+            key="created"
+            onChange={(e) => handleFilterCreated(e)}
+          >
+            <option disabled selected>
+              Filter by created
+            </option>
+            <option key="fil1" value="created">
+              Dogs created
+            </option>
+            <option key="fil2" value="api">
+              Existing dogs
+            </option>
           </select>
+        </li>
+        <li className={s.li}>
+          
+        </li>
 
-        </div>
-        <div>
-
+        
           <Paginado
             DogsPerPage={dogsPerPage}
             allDogs={allDogs.length}
             paginado={paginado}
+            currentPage= {currentPage}
           />
-
-        </div>
-
+        
       </nav>
-      <div>
+      <div className={s.main} key="main">
         {currentDogs?.map((e) => {
           return (
             <Dog
@@ -131,11 +187,12 @@ const Home = () => {
         })}
       </div>
 
-      <div>
+      <div key="pag2">
         <Paginado
           DogsPerPage={dogsPerPage}
           allDogs={allDogs.length}
           paginado={paginado}
+          currentPage= {currentPage}
         />
       </div>
     </div>
@@ -146,16 +203,16 @@ export default Home;
 
 // __Ruta principal__: debe contener
 
-// - [ ] Input de búsqueda para encontrar razas de perros por nombre
+// - [V ] Input de búsqueda para encontrar razas de perros por nombre
 // - [ v] Área donde se verá el listado de razas de perros. Deberá mostrar su:
 //   - Imagen
 //   - Nombre
 //   - Temperamento
 //   - Peso
-// - [ ] Botones/Opciones para filtrar por:
+// - [ V] Botones/Opciones para filtrar por:
 //   - Temperamento
 //   - Raza existente (es decir las que vienen de la API) o agregada por nosotros (creadas mediante el form)
-// - [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por:
+// - [ V] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por:
 //   - Orden alfabético
 //   - Peso
 // - [v ] Paginado para ir buscando y mostrando las siguientes razas, mostrando 8 razas por página.

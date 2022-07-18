@@ -1,53 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+.card {
+  display: inline-block;
+  width: 900px;
+  height: 500px;
+  margin-top: 20px;
+  margin-left: 45px;
+  margin-bottom: 20px;
+  color:black;
+  background-size: 100%;
+  border-radius: 30px;
+  opacity: 90%;
+  background: #F09819;  
+background: -webkit-linear-gradient(to right, #EDDE5D, #F09819);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #EDDE5D, #F09819); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  columns: 2;
+  
+  
+}
 
-.card{
+.text{
+  font-family: 'Righteous', cursive;
+  font-size: medium;
+  color: solid black ;
+  padding-left: 25%;
+  padding-right: 5%;
+  padding-top: 1px;
+  
+  
+
+}
+.peso{
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px; 
+  margin-top: 0px;
+  margin-bottom: 5px;
+
+}
+
+
+
+.image{
+    display: flex;
     position: relative;
-    width: 9000ox;
-    height: 900px;
-    color:#a18a96;
-    background-size: cover;
-    background: image(image);
-    border-radius: 20px;
-    overflow: hidden;
+    border-top-left-radius: 30px;
+    border-end-start-radius: 30px;
+    width: 510px;
+    height: 500px;
+}
+
+
+.boton { 
+    width: 45%;
+    background-color: rgb(0, 0, 0);
     
-
-}
-
-.card_content{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 20px;
-    background-color: #fff;
-    border-bottom-left-radius: 20px;
-    transform: translateY(70px);
-    transition: transform .25s;
-}
-.card_content::before{
-    content: '';
-    position: absolute;
-    top: -47px;
-    right: -45px;
-    width: 100px;
-    transform: rotate(-175deg);
-    border-radius: 50%;
-    box-shadow: inset 40px 48px
-    #fff;
-
-}
-.card_title{
-    color: #6A515E;
-    line-height:  15px;
-}
-.card_description{
-    font-size: 14px;
-    opacity: 0;
-    transition: opacity .5s;
-}
-.card:hover .card_content{
-    transform: translateY(0);
-}
-card:hover .card_description{
-    opacity: 1;
-    transition-delay: .25s;
-}
+    padding: 1%;
+    margin: 3% 0% 0% 15%;
+    border: 2px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    
+  }
+  
+  .boton:hover{
+    background-color: #EDDE5D;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  .link{
+    font-family: 'Righteous', cursive;
+    color: #EDDE5D;
+    font-size: large;
+    
+    width: max-content;
+  }
+  .link:hover{
+    font-family: 'Righteous', cursive;
+    font-size: large;
+    color: black;
+    
+  }
+    

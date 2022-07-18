@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getDogsById, getDogs } from "../Redux-actions";
 import s from "../Style/Dog.module.css";
+import { Link } from "react-router-dom";
 
 function DogDetail() {
   const dogsDetail = useSelector((state) => state.dogsDetail);
@@ -57,7 +58,7 @@ function DogDetail() {
             <div>
               <h3>Temperament: {e.temperament}</h3>
             </div>
-            
+            <button> <Link to='/home'> Home </Link></button>
           </div>
         );
       })}

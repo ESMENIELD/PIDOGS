@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
+.main {
+  display: block;
+  width: 1900px;
+  margin-right: 4px;
+  column-count: 2;
+  column-width: 50%;
+  background-color: ghostwhite;
+}
+.nav {
+  background-color: rgb(212, 154, 154);
+  width: 1900px;
+}
+.li {
+  display: inline-block;
+  padding: 1%;
+  padding-bottom: 20px;
+}
+.divbot {
+  padding-left: 40%;
+  padding-top: 2%;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: space-between;
+  justify-content: center;
+  max-width: fit-content;
+}
+.input {
+  font-family: "Righteous", cursive;
+  width: 280px;
+  background: #fff;
+  border-radius: 10px;
+  height: 35px;
+  line-height: 45px;
+  padding: 0 10px 0 20px;
+  transition: 0.3s ease all;
+  border: 3px solid #f09819;
+  appearance: auto;
+
+  overflow: hidden;
+}
+.input:focus {
+  border: 3px solid #edde5d;
+  outline: none;
+  box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+}
+.search {
+  margin-left: 25px;
+  margin-right: 5px;
+  display: inline;
+}
+
+.boton {
+  height: 35px;
+  width: 120px;
+  font-family: "Righteous", cursive;
+  font-size: large;
+  color: #edde5d;
+  background-color: rgb(0, 0, 0);
+  border: 2px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.boton:hover {
+  color: black;
+  background-color: #edde5d;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.botonlink {
+  margin-right: 30px;
+  width: 120px;
+  height: 35px;
+  background-color: rgb(0, 0, 0);
+  border: 2px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Righteous", cursive;
+  color: #edde5d;
+  font-size: large;
+}
+
+.botonlink:hover {
+  background-color: #edde5d;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.link {
+  font-family: "Righteous", cursive;
+  color: #edde5d;
+  font-size: large;
+
+  width: max-content;
+}
+.link:hover {
+  font-family: "Righteous", cursive;
+  font-size: large;
+  color: black;
+}

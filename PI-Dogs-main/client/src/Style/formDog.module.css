@@ -1,20 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
 .div{
-    background-color: rgb(212, 212, 221);
-    border-radius: 15px;
-    margin: auto;
-    align-content: space-around;
-    width: 60%;
     
+    
+    border-radius: 15px;
+    height:max-content;
+    max-height: 2000px;
+    
+
+    
+    margin-left: 25%;
+    
+    width: 500px;
+    max-width: 600px;
+    display: flex;
+    opacity: 96%;
+  flex-direction: column;
+  align-items: center !important;
+  
+  background: #F09819;  
+  background: -webkit-linear-gradient(to right, #EDDE5D, #F09819);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #EDDE5D, #F09819); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .main{
-    background-image: url('../Style/perros.jpg');
-    font-family: 'PT Sans', sans-serif;
-    max-width: 10000px;
-    width: 90%;
-    margin: auto;
-    padding: 40px;
+  background-image: url('https://images.unsplash.com/photo-1583512603784-a8e3ea8355b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80');
+  background-repeat: repeat;
+    width: 3500px;
+    
+    
+  
     
 }
 
@@ -23,6 +38,8 @@
     list-style: none;
   }
   .botonTemp { 
+    font-family: 'Righteous', cursive;
+    font-size: large;
     width: 45%;
     background-color: black;
     color: white;
@@ -35,9 +52,24 @@
   }
   
   .botonTemp:hover{
+    font-family: 'Righteous', cursive;
+    font-size: large;
     background-color: #374151;
     transform: scale(1.1);
     cursor: pointer;
+  }
+  .link{
+    font-family: 'Righteous', cursive;
+    color: #EDDE5D;
+    font-size: large;
+    
+    width: max-content;
+  }
+  .link:hover{
+    font-family: 'Righteous', cursive;
+    font-size: large;
+    color: black;
+    
   }
     
    

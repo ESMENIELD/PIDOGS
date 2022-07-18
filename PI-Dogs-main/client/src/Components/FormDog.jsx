@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { getTemperaments } from "../Redux-actions";
+import { getTemperaments, getDogs } from "../Redux-actions";
 import {
   Select,
   Form,
@@ -16,11 +16,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import Input from "./Input";
 import s from "../Style/formDog.module.css";
+import { Link } from "react-router-dom";
 
 const FormDog = () => {
-  const allTemperaments = useSelector((state) => state.temperaments); //---traigo los estados globales.
+  const allTemperaments = useSelector((state) => state.temperaments);
+  const allDogs = useSelector((state) => state.allDogs); //---traigo los estados globales.
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getDogs());
     dispatch(getTemperaments());
   }, [dispatch]);
 
@@ -52,38 +55,79 @@ const FormDog = () => {
 
   const expresiones = {
     name: /^[A-Z]+[A-Za-z0-9\s]+$/g,
-    numbers: /^[1-99]\d*(\.\d+)?$/,
   };
 
   const validate = () => {
-    if (weight_min.campo.length > 0) {
+    if (name.campo.length > 0) {
+      let dogsCreated = allDogs.filter((e) => e.userCreated);
+      let namerep = dogsCreated.map((e) => e.name === name.campo);
+      console.log(namerep);
+      if (namerep.includes(true)) {
+        console.log(namerep);
+        setName((prevState) => {
+          return { ...prevState, validate: "false1" };
+        });
+      } else if (name[0] === false) {
+        setName((prevState) => {
+          return { ...prevState, validate: "true" };
+        });
+      }
+    }
+
+    if (weight_min.campo && weight_max.campo) {
       if (weight_min.campo > weight_max.campo) {
         setWeight_max((prevState) => {
           return { ...prevState, validate: "false" };
         });
+        setWeight_min((prevState) => {
+          return { ...prevState, validate: "false" };
+        });
       } else {
+        setWeight_min((prevState) => {
+          return { ...prevState, validate: "true" };
+        });
         setWeight_max((prevState) => {
           return { ...prevState, validate: "true" };
         });
       }
     }
-    if (height_min.campo.length > 0) {
+    if (height_min.campo && height_max.campo) {
       if (height_min.campo > height_max.campo) {
         setHeight_max((prevState) => {
           return { ...prevState, validate: "false" };
         });
+        setHeight_min((prevState) => {
+          return { ...prevState, validate: "false" };
+        });
+      } else if (height_min.campo.length < 2 && height_max.campo.length > 2) {
+        setHeight_min((prevState) => {
+          return { ...prevState, validate: "true" };
+        });
+        setHeight_max((prevState) => {
+          return { ...prevState, validate: "true" };
+        });
       } else {
+        setHeight_min((prevState) => {
+          return { ...prevState, validate: "true" };
+        });
         setHeight_max((prevState) => {
           return { ...prevState, validate: "true" };
         });
       }
     }
-    if (life_time_min.campo.length > 0) {
+
+    if (life_time_min.campo && life_time_max.campo) {
       if (life_time_min.campo > life_time_max.campo) {
+        setLife_time_min((prevState) => {
+          return { ...prevState, validate: "false" };
+        });
         setLife_time_max((prevState) => {
           return { ...prevState, validate: "false" };
         });
       } else {
+        setLife_time_min((prevState) => {
+          return { ...prevState, validate: "true" };
+        });
         setLife_time_max((prevState) => {
           return { ...prevState, validate: "true" };
         });
@@ -91,11 +135,13 @@ const FormDog = () => {
     }
   };
   function handlertemperament(e) {
-    
     e.preventDefault();
-    if (dataForm.temperament.length===3){
-      alert('only add 3 temperaments')
-    }else if(dataForm.temperament.length<3 && dataForm.temperament.map(el=> el!== e.target.value)){
+    if (dataForm.temperament.length === 3) {
+      alert("only add 3 temperaments");
+    } else if (
+      dataForm.temperament.length < 3 &&
+      dataForm.temperament.map((el) => el.name !== e.target.value)
+    ) {
       setDataForm({
         ...dataForm,
         name: name.campo,
@@ -107,9 +153,8 @@ const FormDog = () => {
         life_time_max: life_time_max.campo,
         temperament: [...dataForm.temperament, e.target.value],
       });
-
     }
-  };
+  }
 
   function RemoveTemperament(name) {
     setDataForm({
@@ -118,7 +163,7 @@ const FormDog = () => {
     });
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     console.log(dataForm);
@@ -134,7 +179,7 @@ const FormDog = () => {
     ) {
       setFormulariovalidate(true);
 
-      axios.post("http://localhost:3001/dogs", dataForm).then(
+      await axios.post("http://localhost:3001/dogs", dataForm).then(
         setDataForm({
           name: "",
           weight_min: "",
@@ -147,13 +192,13 @@ const FormDog = () => {
         })
       );
 
-    setName({ campo: "", validate: "" });
-    setWeight_min({ campo: "", validate: null });
-    setWeight_max({ campo: "", validate: null });
-    setHeight_min({ campo: "", validate: null });
-    setHeight_max({ campo: "", validate: null });
-    setLife_time_min({ campo: "", validate: null });
-    setLife_time_max({ campo: "", validate: null });
+      setName({ campo: "", validate: "" });
+      setWeight_min({ campo: "", validate: null });
+      setWeight_max({ campo: "", validate: null });
+      setHeight_min({ campo: "", validate: null });
+      setHeight_max({ campo: "", validate: null });
+      setLife_time_min({ campo: "", validate: null });
+      setLife_time_max({ campo: "", validate: null });
 
       // ...
     } else {
@@ -164,16 +209,18 @@ const FormDog = () => {
   return (
     <main className={s.main}>
       <div className={s.div}>
-        <Form action="" onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit}>
           <Input
             state={name}
             setstate={setName}
             tipo="text"
-            label="Dog Name"
+            label="Dog Name:"
             placeholder="Dog name"
             name="name"
-            leyendaError="the first letter should be in uppercase."
+            leyendaError="The first letter should be in uppercase."
+            leyendaError1="The name alredy exist, plase try whit another name"
             expresionRegular={expresiones.name}
+            funcion={validate}
           />
           <Input
             min={1}
@@ -181,12 +228,11 @@ const FormDog = () => {
             state={weight_min}
             setstate={setWeight_min}
             tipo="number"
-            label="Weigth Min"
-            placeholder="min weight"
+            label="Min weight in Kg:"
+            placeholder="Min weight in Kg"
             name="weight_min"
-            leyendaError="only numbers "
-            leyendaError1="the minimum value cannot be greater than the maximum value"
-            expresionRegular={expresiones.numbers}
+            leyendaError="the minimum value cannot be greater than the maximum value"
+            funcion={validate}
           />
           <Input
             min={1}
@@ -194,12 +240,10 @@ const FormDog = () => {
             state={weight_max}
             setstate={setWeight_max}
             tipo="number"
-            label="Max Weight"
-            placeholder="Max Weight"
+            label="Max Weight in Kg:"
+            placeholder="Max Weight in Kg"
             name="weight_max"
-            leyendaError="Only numbers"
-            leyendaError1="the maximum value cannot be less than the minimum value"
-            expresionRegular={expresiones.numbers}
+            leyendaError="The maximum value cannot be less than the minimum value"
             funcion={validate}
           />
           <Input
@@ -208,25 +252,22 @@ const FormDog = () => {
             state={height_min}
             setstate={setHeight_min}
             tipo="number"
-            label="min Height"
-            placeholder="min Height"
+            label="Min Height in Cm:"
+            placeholder="Min Height in Cm"
             name="height_min"
-            leyendaError="only numbers"
-            leyendaError1="the minimum value cannot be greater than the maximum value"
-            expresionRegular={expresiones.numbers}
+            leyendaError="The minimum value cannot be greater than the maximum value"
+            funcion={validate}
           />
           <Input
             min={1}
-            max={100}
+            max={500}
             state={height_max}
             setstate={setHeight_max}
             tipo="number"
-            label="max Height"
-            placeholder="max Height"
+            label="Max Height in Cm:"
+            placeholder="Max Height in Cm"
             name="height_max"
-            leyendaError="only numbers "
-            leyendaError1="the maximum value cannot be less than the minimum value"
-            expresionRegular={expresiones.numbers}
+            leyendaError="the maximum value cannot be less than the minimum value"
             funcion={validate}
           />
           <Input
@@ -235,12 +276,11 @@ const FormDog = () => {
             state={life_time_min}
             setstate={setLife_time_min}
             tipo="number"
-            label="min life spect"
-            placeholder="min life spect"
+            label="Min life spect in years:"
+            placeholder="Min life spect"
             name="life_time_min"
-            leyendaError="only numbers"
-            leyendaError1="the minimum value cannot be greater than the maximum value"
-            expresionRegular={expresiones.numbers}
+            funcion={validate}
+            leyendaError="the minimum value cannot be greater than the maximum value"
           />
           <Input
             min={1}
@@ -248,24 +288,22 @@ const FormDog = () => {
             state={life_time_max}
             setstate={setLife_time_max}
             tipo="number"
-            label="max Life spect"
-            placeholder="max life spect"
+            label="Max Life spect in years:"
+            placeholder="Max life spect in years"
             name="life_time_max"
-            leyendaError="only numbers"
-            leyendaError1="the maximum value cannot be less than the minimum value"
-            expresionRegular={expresiones.numbers}
+            leyendaError="the maximum value cannot be less than the minimum value"
             funcion={validate}
           />
           <div>
             <Label>select Temperament:</Label>
             <Select
-            defaultValue={"select"}
               name="temperament"
               id="temper1"
               onChange={handlertemperament}
             >
-              
-              <option disabled selected>Chose temperament</option>
+              <option disabled selected>
+                Chose temperament
+              </option>
               {allTemperaments?.map((e) => (
                 <option value={e.name} key={e.id}>
                   {e.name}
@@ -274,19 +312,17 @@ const FormDog = () => {
             </Select>
             <ul>
               <li>
-              {dataForm.temperament?.map((temp) => (
-              
-              <button key={temp}  className={s.botonTemp}
-              onClick={() => RemoveTemperament(temp)}>
-                {temp}
-                
-              </button>
-              
-            ))}
-
+                {dataForm.temperament?.map((temp) => (
+                  <button
+                    key={temp}
+                    className={s.botonTemp}
+                    onClick={() => RemoveTemperament(temp)}
+                  >
+                    {temp}
+                  </button>
+                ))}
               </li>
             </ul>
-            
           </div>
 
           {formulariovalidate === false && (
@@ -304,6 +340,11 @@ const FormDog = () => {
             )}
           </ContenedorBotonCentrado>
         </Form>
+        <Boton>
+          <Link className={s.link} to="/home">
+            Home
+          </Link>
+        </Boton>
       </div>
     </main>
   );
