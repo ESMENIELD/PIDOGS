@@ -166,7 +166,7 @@ const FormDog = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(dataForm);
+    //console.log(dataForm);
 
     if (
       name.validate === "true" &&
