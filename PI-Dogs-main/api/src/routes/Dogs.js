@@ -56,7 +56,7 @@ router.post("/dogs", async (req, res, next) => {
       weight_max,
       life_time_min,
       life_time_max,
-      temperament,
+      temperament 
     } = req.body;
 
     const newDog = await Dog.create({
@@ -67,10 +67,11 @@ router.post("/dogs", async (req, res, next) => {
       weight_max,
       life_time_min,
       life_time_max,
-      userCreated: true,
+      userCreated: true 
     });
-    // temperament.map(e=> newDog.addTempers(e))
-    newDog.addTemper(temperament);
+     
+    await newDog.addTemper(temperament);
+    
     res.status(201).json(newDog);
   } catch (error) {
     next(error);
@@ -87,11 +88,16 @@ router.get("/temperaments", async (req, res, next) => {
   }
 });
 
+
+//----------put y delete
+
+
 module.exports = router;
 
 // - [+ ] __GET /dogs__:
 //   - Obtener un listado de las razas de perro
 //   - Debe devolver solo los datos necesarios para la ruta principal
+//name, peso, imagen
 // - [+ ] __GET /dogs?name="..."__:
 //   - Obtener un listado de las razas de perro que contengan la palabra ingresada como query parameter
 //   - Si no existe ninguna raza de perro mostrar un mensaje adecuado
@@ -105,3 +111,63 @@ module.exports = router;
 // - [ ] __GET /temperaments__:
 //   - Obtener todos los temperamentos posibles
 //   - En una primera instancia deberán obtenerlos desde la API externa y guardarlos en su propia base de datos y luego ya utilizarlos desde allí
+
+
+
+
+
+
+
+
+// router.put("/edit/:id", async (req,res,next)=>{
+//   const {id}= req.params;
+//   const{
+//     name,
+//       height_min,
+//       height_max,
+//       weight_min,
+//       weight_max,
+//       life_time_min,
+//       life_time_max,
+//       temperament
+//   }=req.body;
+ 
+//   try {
+    
+   
+//     await Dog.update(
+//       {
+//         name,
+//         height_min,
+//         height_max,
+//         weight_min,
+//         weight_max,
+//         life_time_min,
+//         life_time_max,
+       
+  
+//       },
+//       {
+//         where: {id}
+//       }
+//      );
+     
+
+  
+//     res.status(200).send(editDog)
+    
+//   } catch (error) {
+//     next(error)
+//   }
+  
+// });
+
+// router.delete('/delete/:id', async (req,res,next)=>{
+//   const {id}=req.params;
+//   try {
+//    await Dog.destroy({where:{id}})
+//    res.status(200).send('dog deleted')
+//   } catch (error) {
+//     next(error)
+//   }
+// })

@@ -1,13 +1,13 @@
 
 
 .paginated {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 40px);
+    display: flex;
+    flex-direction:row;
     list-style: none;
-    gap: 5px;
     padding: 20px;
     align-items: center;
     justify-content: center;
+   
   }
   .number {
     background-color:black ;
@@ -15,9 +15,9 @@
     list-style: none;
     display: flex;
     font-size: 15px;
-    margin: auto;
+    margin:auto;
     padding: 5px;
-    width: 30px;
+    width: fit-content;
     height: 30px;
     border-radius: 10px;
     font-family: 'Righteous', cursive;
@@ -28,6 +28,11 @@
   .number:hover {
     transform: scale(1.1);
     cursor: pointer;
+    background-color: #EDDE5D;
+    color: black;
+    
+    border: 5px solid black;
+    
   }
   
   .img {
@@ -46,7 +51,7 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    width: 30px;
+    width:30px;
     height: 30px;
     border-radius: 10px;
     position: relative;
@@ -71,4 +76,28 @@
   .nav {
     width: 70%;
     margin: auto;
+  }
+  .change{
+    background-color:#EDDE5D;
+    color: black;
+    border-radius: 10px;
+    list-style:none;
+    display: flex;
+    font-size: 10px;
+    margin:auto;
+    padding: 3px;
+    width: fit-content;
+    height: 30px;
+    font-family: 'Righteous', cursive;
+    font-size:large;  
+    font-weight: bold;
+    border: 5px solid black;
+  }
+  .change:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    background-color:black;
+    color:#EDDE5D;
+    border: 5px solid #EDDE5D;
+    
   }

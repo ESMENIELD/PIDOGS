@@ -1,0 +1,64 @@
+
+.divu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 200px;
+  width: 1300px;
+  font-family: "Righteous", cursive;
+  font-size: large;
+  font-weight: bolder;
+  color: black;
+  background-image: linear-gradient(to top, #e14fad 0%, #f9d423 100%);
+  border-radius: 30px;
+}
+.img {
+  max-width: 900px;
+  min-height: 800px;
+  border-radius: 8px;
+}
+.divl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  font-family: "Righteous", cursive;
+  font-size: large;
+  font-weight: bolder;
+  color: black;
+  opacity: 90%;
+  background-size: 100%;
+  border-radius: 6px;
+  background-color: rgba(253, 176, 194, 0.96);
+}
+
+.boton {
+  background-image: linear-gradient(to top, #e14fad 0%, #f9d423 100%);
+  border-radius: 9px;
+  padding: 24px;
+  box-shadow: 1px 1px 20px 0 #000000;
+  border: solid black 3px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.boton:hover {
+  background-image: linear-gradient(to bottom, #e14fad 0%, #f9d423 100%);
+  text-decoration: none;
+}
+.link{
+  color: #000000;
+  font-family: "Righteous", cursive;
+  font-size: large;
+  font-weight: bolder;
+}
+.link:hover{
+  color:blanchedalmond;
+  font-family: "Righteous", cursive;
+  font-size: large;
+  font-weight: bolder;
+
+}

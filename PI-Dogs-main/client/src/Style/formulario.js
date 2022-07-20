@@ -1,6 +1,4 @@
 import styled, { css } from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 const colors = {
   borde: "#0075FF",
   error: "#bb2929",
@@ -58,7 +56,7 @@ const Input = styled.input`
   ${(props) =>
     props.validate === "true" &&
     css`
-      border: 3px solid transparent;
+      border: 3px solid ${colors.exito};
     `}
   ${(props) =>
     props.validate === "false" &&
@@ -119,33 +117,6 @@ const LeyendaError1 = styled.p`
     `}
 `;
 
-const IconoValidation = styled(FontAwesomeIcon)`
-  position: absolute;
-  right: 70px;
-  bottom: 14px;
-  z-index: 100;
-  font-size: 16px;
-  opacity: 0;
-  ${(props) =>
-    props.validate === "false" &&
-    css`
-      opacity: 1;
-      color: ${colors.error};
-    `}
-    ${(props) =>
-      props.validate === "false1" &&
-      css`
-        opacity: 1;
-        color: ${colors.error};
-      `}
-  ${(props) =>
-    props.validate === "true" &&
-    css`
-      opacity: 1;
-      color: ${colors.exito};
-    `}
-`;
-
 const ContenedorBotonCentrado = styled.div`
   display: flex;
   flex-direction: column;
@@ -184,8 +155,22 @@ const Boton = styled.button`
 `;
 
 const MensajeExito = styled.p`
-  font-size: 14px;
+  font-size: 20px;
+  font-family: "Righteous", cursive;
+  font-weight: lighter;
   color: ${colors.exito};
+  height: 45px;
+  line-height: 45px;
+  background: #ddddd2;
+  padding: 0px 15px;
+  border-radius: 3px;
+  grid-column: span 2;
+  p {
+    margin: 0;
+  }
+  b {
+    margin-left: 10px;
+  }
 `;
 
 const MensajeError = styled.div`
@@ -211,7 +196,6 @@ export {
   Input,
   LeyendaError,
   LeyendaError1,
-  IconoValidation,
   ContenedorBotonCentrado,
   Boton,
   MensajeExito,

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getDogsById, getDogs } from "../Redux-actions";
-import s from "../Style/Dog.module.css";
+import s from "../Style/dogDetail.module.css";
 import { Link } from "react-router-dom";
 
 function DogDetail() {
@@ -30,35 +30,40 @@ function DogDetail() {
       {dogsDetail?.map((e) => {
         return (
           <div>
-            <div>
+            <div className={s.divu}>
               <img src={e.image} alt="dog img" className={s.img} />
-            </div>
-            <h4>{e.name}</h4>
+              <h1>{e.name}</h1>
 
-            <div>
-              <h3>weight_min:{e.weight_min} kg</h3>
-              {e.weight_min ? (
-                <h3>Weight min:{libras(e.weight_min)} lbs</h3>
-              ) : null}
-              <h3>weight_max:{e.weight_max} kg</h3>
-              {e.weight_max ? (
-                <h3>Weight max:{libras(e.weight_max)} lbs</h3>
-              ) : null}
+              <div className={s.divl}>
+                <h3>Weight min:</h3>
+                <h2>{e.weight_min} kg</h2>
+                {e.weight_min ? <h2>{libras(e.weight_min)} lbs</h2> : null}
+                <h3>Weight max:</h3>
+                <h2>{e.weight_max} kg</h2>
+                {e.weight_max ? <h2>{libras(e.weight_max)} lbs</h2> : null}
+
+                <h3>Height min:</h3>
+                <h2>{e.height_min} cm</h2>
+                {e.height_min ? <h2>{pies(e.height_min)} ft</h2> : null}
+                <h3>Height max:</h3>
+                <h2>{e.height_max} cm</h2>
+                {e.height_max ? <h2>{pies(e.height_max)} ft</h2> : null}
+
+                <h3>Life time spect</h3>
+                <h2>
+                  {e.life_time_min}-{e.life_time_max}{" "}
+                </h2>
+
+                <h2>Temperament: </h2>
+                <h3>{e.temperament}</h3>
+                <button className={s.boton}>
+              {" "}
+              <Link className={s.link} to="/home"> Home </Link>
+            </button>
+              </div>
             </div>
-            <div>
-              <h3>Height_min:{e.height_min} cm</h3>
-              {e.height_min ? (
-                <h3>Height min:{pies(e.height_min)} ft</h3>
-              ) : null}
-              <h3>Height_max:{e.height_max} cm</h3>
-              {e.height_max ? (
-                <h3>Height max:{pies(e.height_max)} ft</h3>
-              ) : null}
-            </div>
-            <div>
-              <h3>Temperament: {e.temperament}</h3>
-            </div>
-            <button> <Link to='/home'> Home </Link></button>
+
+           
           </div>
         );
       })}
@@ -68,7 +73,7 @@ function DogDetail() {
 
 export default DogDetail;
 
-// - [ ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento)
-// - [ ] Altura
-// - [ ] Peso
-// - [ ] Años de vida
+// - [v ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento)
+// - [ v] Altura
+// - [v ] Peso
+// - [v ] Años de vida

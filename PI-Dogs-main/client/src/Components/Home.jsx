@@ -16,38 +16,50 @@ import Dog from "./Dog";
 import s from "../Style/home.module.css";
 
 const Home = () => {
-  const dispatch = useDispatch(); // despacha aciones medante hooks
-  const allDogs = useSelector((state) => state.dogs);
+  const dispatch = useDispatch(); //con esta hook puedo despachar acciones
+  const allDogs = useSelector((state) => state.dogs); //aca selecciono mi estado en el reducer
   const temperaments = useSelector((state) => state.temperaments);
-  const [order, setOrder] = useState("");
-
-  //-----------PAGINADO
-  const [currentPage, setCurrentPage] = useState(1);
-  const [dogsPerPage] = useState(8);
-  const indexOfLastDog = currentPage * dogsPerPage;
-  const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
-
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const [order, setOrder] = useState(""); //utilizo este estado local para dar cambio al estado del componente cuando hago una accion de ordenamiento
 
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
   }, [dispatch]);
 
+  //-----------PAGINADO
+  const [currentPage, setCurrentPage] = useState(1);//estado para la pagina actual  de el paginado, inicialmente es uno pero va cambiando en la funcion paginado
+  const [dogsPerPage] = useState(8);//estado que fija la cantidad de 
+  const indexOfLastDog = currentPage * dogsPerPage;
+  const indexOfFirstDog = indexOfLastDog - dogsPerPage;
+  const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
+
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);//esta funcion recibe un numero del componente "Paginado" que surge de un recorrido for que agrega un numero agrega un numeros
+    // con su valor incrementado en uno a un arreglo, comenzando desde el uno hasta llegar al numero que surge de dividir la cantidad de objetos que existen 
+    //en mi estado de perros por la cantidad requerida en el estado de "dogPerPage", en este caso es 8.
+  };
+  const changePageNext=()=>{
+      setCurrentPage((page)=> page + 1);
+  }
+  const changePagePrev=()=>{
+      setCurrentPage((page)=> page - 1 );
+  }
+  
+  
   //----funciones de manejos de cambios---
 
   //---filtros
   function handleFilterTemp(e) {
     e.preventDefault();
     dispatch(filterByTemp(e.target.value));
+    setCurrentPage(1)
   }
 
   function handleFilterCreated(e) {
     e.preventDefault();
     dispatch(filterCreated(e.target.value));
+    setCurrentPage(1)
+  
   }
 
   //---ordenamientos
@@ -55,13 +67,18 @@ const Home = () => {
   function handleOrderName(e) {
     e.preventDefault();
     dispatch(orderName(e.target.value));
-    setOrder(`Ordenado ${e.target.value} `);
+    setOrder(`Ordenado ${e.target.value}`);
+    setCurrentPage(1)
+  
+    
   }
 
   function handleOrderWeight(e) {
     e.preventDefault();
     dispatch(orderByWeight(e.target.value));
-    setOrder(`Ordenado ${e.target.value} `);
+    setOrder(`Ordenado ${e.target.value}`);
+    setCurrentPage(1)
+  
   }
 
   function handleClick(e) {
@@ -73,20 +90,19 @@ const Home = () => {
     <div key="home">
       <nav className={s.nav} key="nav">
         <div className={s.divbot}>
-        <li className={s.li}>
-          <button className={s.botonlink}>
-          <Link  to="/create" className={s.link}>Create Dog</Link>
-          </button>
-        </li>
+          <li className={s.li}>
+            <button className={s.botonlink}>
+              <Link to="/create" className={s.link}>
+                Create Dog
+              </Link>
+            </button>
+          </li>
 
-        <li className={s.li}>
-          
-          <button className={s.boton} onClick={handleClick} key="reload">
-            Reload
-          </button>
-        </li>
-
-        
+          <li className={s.li}>
+            <button className={s.boton} onClick={handleClick} key="reload">
+              Reload
+            </button>
+          </li>
         </div>
         <SearchBar />
 
@@ -108,21 +124,21 @@ const Home = () => {
           </select>
         </li>
         <li className={s.li}>
-        <select
-          className={s.input}
-          key="orders2"
-          onChange={(e) => handleOrderWeight(e)}
-        >
-          <option disabled selected>
-            Order by Weigth
-          </option>
-          <option key="o3" value="lower">
-            Lower weight
-          </option>
-          <option key="o4" value="higer">
-            Higer weight
-          </option>
-        </select>
+          <select
+            className={s.input}
+            key="orders2"
+            onChange={(e) => handleOrderWeight(e)}
+          >
+            <option disabled selected>
+              Order by Weigth
+            </option>
+            <option key="o3" value="lower">
+              Lower weight
+            </option>
+            <option key="o4" value="higer">
+              Higer weight
+            </option>
+          </select>
         </li>
         <li className={s.li}>
           <select
@@ -159,23 +175,24 @@ const Home = () => {
             </option>
           </select>
         </li>
-        <li className={s.li}>
-          
-        </li>
-
-        
-          <Paginado
-            DogsPerPage={dogsPerPage}
-            allDogs={allDogs.length}
-            paginado={paginado}
-            currentPage= {currentPage}
-          />
-        
+        <li className={s.li}></li>
       </nav>
+      <div key="pag1" className={s.divpag}>
+        <Paginado
+          DogsPerPage={dogsPerPage}
+          allDogs={allDogs.length}
+          paginado={paginado}
+          currentPage={currentPage}
+          changePagePrev={changePagePrev}
+          changePageNext={changePageNext}
+          
+        />
+      </div>
       <div className={s.main} key="main">
         {currentDogs?.map((e) => {
-          return (
-            <Dog
+          return(
+          <Dog
+         
               id={e.id}
               name={e.name}
               weight_min={e.weight_min}
@@ -187,12 +204,13 @@ const Home = () => {
         })}
       </div>
 
-      <div key="pag2">
+      <div key="pag2" className={s.divpag}>
         <Paginado
           DogsPerPage={dogsPerPage}
           allDogs={allDogs.length}
           paginado={paginado}
-          currentPage= {currentPage}
+          currentPage={currentPage}
+          
         />
       </div>
     </div>

@@ -54,7 +54,7 @@
   .botonTemp:hover{
     font-family: 'Righteous', cursive;
     font-size: large;
-    background-color: #374151;
+    background-color: #ddddd2;
     transform: scale(1.1);
     cursor: pointer;
   }
