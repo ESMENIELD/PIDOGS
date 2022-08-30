@@ -22,7 +22,6 @@ const FormDog = () => {
   const allDogs = useSelector((state) => state.allDogs); //---traigo los estados globales.
   const dispatch = useDispatch();
 
-
   const [name, setName] = useState({ campo: "", validate: null });
   const [weight_min, setWeight_min] = useState({ campo: "", validate: null });
   const [weight_max, setWeight_max] = useState({ campo: "", validate: null });
@@ -52,7 +51,6 @@ const FormDog = () => {
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
-   
   }, []);
 
   const expresiones = {
@@ -63,7 +61,7 @@ const FormDog = () => {
     if (name.campo.length > 0) {
       let dogsCreated = allDogs.filter((e) => e.userCreated);
       let namerep = dogsCreated.map((e) => e.name === name.campo);
-      console.log(namerep);
+      //console.log(namerep);
       if (namerep.includes(true)) {
         console.log(namerep);
         setName((prevState) => {
@@ -350,7 +348,6 @@ const FormDog = () => {
 };
 
 export default FormDog;
-
 
 // __Ruta de creación de raza de perro__: debe contener
 

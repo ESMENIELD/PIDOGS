@@ -14,7 +14,7 @@ router.get("/dogs", async (req, res, next) => {
         e.name.toLowerCase().includes(name.toLowerCase())
       );
       console.log(dogName);
-      dogName
+      dogName.length
         ? res.status(200).send(dogName)
         : res
             .status(404)
@@ -31,7 +31,7 @@ router.get("/dogs", async (req, res, next) => {
 router.get("/dogs/:id", async (req, res, next) => {
   const { id } = req.params;
   const allDogs = await getAllInfo();
-  // console.log(id);
+//console.log(id);
 
   try {
     if (id) {
@@ -88,6 +88,53 @@ router.get("/temperaments", async (req, res, next) => {
   }
 });
 
+router.put("/edit/:id", async (req,res,next)=>{
+  const {id}= req.params;
+  console.log(id);
+  const{
+    name,
+      height_min,
+      height_max,
+      weight_min,
+      weight_max,
+      life_time_min,
+      life_time_max,
+      temperament
+  }=req.body;
+ 
+  try {
+  //  let tempers= await temperament.map(e=>e).join(', ')
+  //  console.log(tempers);
+let perri=await Dog.findByPk(id)
+console.log(perri);
+await perri.set(
+      {
+        name:name,
+        height_min: height_min,
+        height_max: height_max,
+        weight_min: weight_min,
+        weight_max: weight_max,
+        life_time_min: life_time_min,
+        life_time_max: life_time_max
+        
+       
+  
+      },
+      {
+        where: {id}
+      }
+     );
+     perri.setTempers(temperament)
+
+  
+    res.status(200).send(perri)
+    
+  } catch (error) {
+    next(error)
+  }
+  
+});
+
 
 //----------put y delete
 
@@ -119,48 +166,6 @@ module.exports = router;
 
 
 
-// router.put("/edit/:id", async (req,res,next)=>{
-//   const {id}= req.params;
-//   const{
-//     name,
-//       height_min,
-//       height_max,
-//       weight_min,
-//       weight_max,
-//       life_time_min,
-//       life_time_max,
-//       temperament
-//   }=req.body;
- 
-//   try {
-    
-   
-//     await Dog.update(
-//       {
-//         name,
-//         height_min,
-//         height_max,
-//         weight_min,
-//         weight_max,
-//         life_time_min,
-//         life_time_max,
-       
-  
-//       },
-//       {
-//         where: {id}
-//       }
-//      );
-     
-
-  
-//     res.status(200).send(editDog)
-    
-//   } catch (error) {
-//     next(error)
-//   }
-  
-// });
 
 // router.delete('/delete/:id', async (req,res,next)=>{
 //   const {id}=req.params;

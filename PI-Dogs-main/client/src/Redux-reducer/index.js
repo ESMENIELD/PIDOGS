@@ -44,7 +44,7 @@ const rootReducer = (state = inicialState, action) => {
         ...state,
         dogs: filterbytemper,
       };
-
+     
     case "ORDER_NAME":
       const sortName =
         action.payload === "a-z"
@@ -92,6 +92,12 @@ const rootReducer = (state = inicialState, action) => {
             ...state,
             dogs: filterCreated
         }
+
+        case 'CLEAN_DETAIL':
+          return{
+            ...state,
+            dogsDetail: []
+          }
 
 
     default:

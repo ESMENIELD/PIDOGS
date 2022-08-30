@@ -2,7 +2,7 @@ import React from "react";
 
 import s from '../Style/paginado.module.css'
 
-export default function Paginado ({DogsPerPage, allDogs, paginado, currentPage,changePageNext, changePagePrev }) {
+export default function Paginado ({DogsPerPage, allDogs, paginado, currentPage, changePageNext, changePagePrev }) {
 
     const pageNumbers =[];
 

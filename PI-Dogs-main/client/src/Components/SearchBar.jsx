@@ -13,6 +13,8 @@ const SearchBar = () => {
     
   };
   const onClickHandler = (e) => {
+    if(input.length===0) return alert('please, enter a dog name');
+    
     dispatch(getName(input));
     setInput('')
   };

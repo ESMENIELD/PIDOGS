@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getDogsById, getDogs } from "../Redux-actions";
+import { getDogsById, cleanDetail } from "../Redux-actions";
 import s from "../Style/dogDetail.module.css";
 import { Link } from "react-router-dom";
 
@@ -13,8 +13,11 @@ function DogDetail() {
   let { id } = useParams();
 
   useEffect(() => {
-    dispatch(getDogs());
+  
     dispatch(getDogsById(id));
+    return ()=>{
+      dispatch(cleanDetail())
+    }
   }, [id]);
 
   const libras = (number) => {

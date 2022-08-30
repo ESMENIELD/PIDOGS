@@ -18,8 +18,13 @@ export function getDogsById (id) {
 };
 export function getName(name) {
     return async (dispatch) =>{
-        var json= await axios.get(`http://localhost:3001/dogs?name=${name}`);
+        
+        try {
+            var json= await axios.get(`http://localhost:3001/dogs?name=${name}`);
         return dispatch({type:'GET_NAME', payload: json.data})
+        } catch (error) {
+            alert('no found dogs')
+        }
     }
 };
 export function getTemperaments () {
@@ -57,5 +62,11 @@ export function filterCreated(payload) {
     return{
         type:'FILTER_CREATED',
         payload
+    }
+}
+export function cleanDetail(){
+    return{
+        type: 'CLEAN_DETAIL'
+        
     }
 }
